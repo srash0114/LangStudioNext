@@ -1,15 +1,19 @@
 "use client";
-import { EmailIcon, PasswordIcon } from "@/assets/icons";
+import { EmailIcon } from "@/assets/icons";
 import React, { useState } from "react";
 import InputGroup from "../FormElements/InputGroup";
 import axios from 'axios';
-
+import { useRouter } from "next/navigation";
 import "../../css/fireworks.css";
 
-export default function SigninWithPassword() {
+export default function ForgotPassword() {
   const [data, setData] = useState({
     email: process.env.NEXT_PUBLIC_DEMO_USER_MAIL || "",
   });
+
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  const router = useRouter();
 
   const [loading, setLoading] = useState(false);
 
@@ -20,47 +24,70 @@ export default function SigninWithPassword() {
     });
   };
 
-  const options = {
-    method: 'POST',
-    url: 'http://42.96.13.119/Auth/login',
-    headers: {authorization: 'Bearer {{token}}', 'content-type': 'application/json'},
-    data: {email: data.email}
-  };
 
-  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-          
     setLoading(true);
-   
+  
     try {
-      const { data } = await axios.request(options);
-      console.log(data);
+      const response = await axios.post('https://api.scanvirus.me/Auth/forgot-password', {
+        email: data.email,
+      }, {
+        withCredentials: true,
+      });
+      setShowPopup(true);
+      
+    } catch (error: any) {
+      if (error.response && error.response.data === "User not found") {
+        setErrorMessage("No user found with this email.");
+      } else {
+        setErrorMessage("An error occurred. Please try again later.");
+      }
+    } finally {
       setLoading(false);
-
-    } catch (error) {
-      console.error(error);
-      setLoading(false);
-
     }
-
   };
-
+  
   return (
     
-    <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
+        {showPopup && (
+          <div className="fixed inset-0 z-[999] flex justify-center items-center bg-gray-500 bg-opacity-50">
+            <div className="relative bg-white z-[999] p-6 rounded-lg shadow-lg w-11/12 sm:w-1/3 md:w-1/4 lg:w-1/5 dark:bg-gray-dark dark:shadow-card">
+              
+              {/* Button X để đóng popup */}
+              <button
+                onClick={() => setShowPopup(false)}
+                className="absolute top-1 right-2 text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-white text-2xl"
+                aria-label="Close"
+              >
+                &times;
+              </button>
+
+              <h2 className="text-xl font-semibold text-center p-3">
+                Please Check Your Email!
+              </h2>
+            </div>
+          </div>
+        )}
 
       <InputGroup
         type="email"
         label="Email"
-        className="mb-4 [&_input]:py-[15px]"
+        className="[&_input]:py-[15px] mb-4.5"
         placeholder="Enter your email"
         name="email"
         handleChange={handleChange}
         value={data.email}
         icon={<EmailIcon />}
+
       />
+      {errorMessage && (
 
+          <p className="pl-1 text-sm text-red">{errorMessage}</p>
 
+      )}
       <div className="py-2.5">
       </div>
 

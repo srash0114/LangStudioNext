@@ -1,5 +1,5 @@
-"use client";
-
+// user-info.tsx
+import { User } from "@/fetch-data";
 import { ChevronUpIcon } from "@/assets/icons";
 import {
   Dropdown,
@@ -9,79 +9,49 @@ import {
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import { LogOutIcon, SettingsIcon, UserIcon } from "./icons";
 import { useRouter } from "next/navigation";
-import { getUserInfo, logout, User } from "@/fetch-data";
+import { logout } from "@/fetch-data";
 import { GuestDropdown } from "./no-user";
-export function UserInfo() {
+
+export function UserInfo({ userData }: { userData: User | null }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [userData, setUserData] = useState<User | null>(null);
   const router = useRouter();
 
   const handleLogout = async () => {
     try {
       await logout();
-      window.dispatchEvent(new Event('user-logout-success'));
-      router.push('/auth/sign-in');
+      window.dispatchEvent(new Event("user-logout-success"));
+      router.push("/auth/sign-in");
     } catch (error) {
-      console.error('Logout error:', error);
-      alert('Logout failed!');
+      console.error("Logout error:", error);
+      alert("Logout failed!");
     }
   };
 
-  const fetchUserInfo = useCallback(async () => {
-    const data = await getUserInfo();
-    setUserData(data);
-  }, []);
-
-  useEffect(() => {
-    fetchUserInfo();
-
-    const handleUserLogin = () => {
-      fetchUserInfo();
-    };
-
-    const handleUserLogout = () => {
-      setUserData(null);
-    };
-  
-    window.addEventListener('update-header', handleUserLogin);
-    window.addEventListener('user-logout-success', handleUserLogout);
-  
-    return () => {
-      window.removeEventListener('update-header', handleUserLogin);
-      window.removeEventListener('user-logout-success', handleUserLogout);
-    };
-  }, [fetchUserInfo]);
-
   if (!userData) {
-    return <GuestDropdown />
+    return <GuestDropdown />;
   }
 
   return (
     <Dropdown isOpen={isOpen} setIsOpen={setIsOpen}>
       <DropdownTrigger className="rounded align-middle outline-none ring-primary ring-offset-2 focus-visible:ring-1 dark:ring-offset-gray-dark">
         <span className="sr-only">My Account</span>
-
         <figure className="flex items-center gap-3 rounded-full border-2 bg-gray-2 dark:border-dark-4 dark:bg-dark-3 dark:text-white dark:focus-visible:border-primary">
           <Image
             src={userData.avatarUrl}
             className="size-12 rounded-full object-cover"
             alt={`Avatar for ${userData.fullName}`}
-            role="size-12 rounded-full object-cover"
+            role="presentation"
             width={200}
             height={200}
           />
           <figcaption className="flex items-center gap-1 font-medium text-dark dark:text-dark-6 max-[1024px]:sr-only">
             <span>{userData.fullName}</span>
-
             <ChevronUpIcon
               aria-hidden
-              className={cn(
-                "rotate-180 transition-transform",
-                isOpen && "rotate-0",
-              )}
+              className={cn("rotate-180 transition-transform", isOpen && "rotate-0")}
               strokeWidth={1.5}
             />
           </figcaption>
@@ -93,7 +63,6 @@ export function UserInfo() {
         align="end"
       >
         <h2 className="sr-only">User information</h2>
-
         <figure className="flex items-center gap-2.5 px-5 py-3.5">
           <Image
             src={userData.avatarUrl}
@@ -103,18 +72,14 @@ export function UserInfo() {
             width={200}
             height={200}
           />
-
           <figcaption className="space-y-1 text-base font-medium">
             <div className="mb-2 leading-none text-dark dark:text-white">
               {userData.fullName}
             </div>
-
             <div className="leading-none text-gray-6">{userData.email}</div>
           </figcaption>
         </figure>
-
         <hr className="border-[#E8E8E8] dark:border-dark-3" />
-
         <div className="p-2 text-base text-[#4B5563] dark:text-dark-6 [&>*]:cursor-pointer">
           <Link
             href={"/profile"}
@@ -124,25 +89,23 @@ export function UserInfo() {
             <UserIcon />
             <span className="mr-auto text-base font-medium">View profile</span>
           </Link>
-
           <Link
             href={"/pages/settings"}
             onClick={() => setIsOpen(false)}
             className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-[9px] hover:bg-gray-2 hover:text-dark dark:hover:bg-dark-3 dark:hover:text-white"
           >
             <SettingsIcon />
-            <span className="mr-auto text-base font-medium">
-              Account Settings
-            </span>
+            <span className="mr-auto text-base font-medium">Account Settings</span>
           </Link>
         </div>
-
         <hr className="border-[#E8E8E8] dark:border-dark-3" />
-
         <div className="p-2 text-base text-[#4B5563] dark:text-dark-6">
           <button
             className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-[9px] hover:bg-gray-2 hover:text-dark dark:hover:bg-dark-3 dark:hover:text-white"
-            onClick={() => {handleLogout(); setIsOpen(false);}}
+            onClick={() => {
+              handleLogout();
+              setIsOpen(false);
+            }}
           >
             <LogOutIcon />
             <span className="text-base font-medium">Log out</span>

@@ -19,7 +19,9 @@ export function GuestDropdown() {
 
         <figure className="flex items-center gap-3 rounded-full border-2 bg-gray-2 dark:border-dark-4 dark:bg-dark-3 dark:text-white dark:focus-visible:border-primary">
           <Image
-            src="http://api.scanvirus.me:9000/file/park_shin_hye.jpg"
+
+            src="https://image.phunuonline.com.vn/fckeditor/upload/2023/20231226/images/nguoi-dan-bac-kinh-thich-thu-_591703595247.jpg"
+
             className="size-12 rounded-full object-cover"
             alt="Avatar"
             role="presentation"

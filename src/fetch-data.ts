@@ -1,4 +1,3 @@
-// services/userService.ts
 import axios from "axios";
 
 export interface User {
@@ -14,14 +13,13 @@ export async function getUserInfo(): Promise<User | null> {
     const response = await axios.get<User>('https://api.scanvirus.me/User/info', {
       withCredentials: true,
     });
-    if (response.status === 200) {
-      return response.data;
+    return response.status === 200 ? response.data : null;
+  } catch (error: any) {
+    if (error.response?.status === 401) {
+      console.warn("Người dùng chưa đăng nhập.");
     } else {
-      console.error('Không thể lấy thông tin người dùng:', response.status);
-      return null;
+      console.error("Lỗi khi gọi API:", error);
     }
-  } catch (error) {
-    console.error('Lỗi khi gọi API:', error);
     return null;
   }
 }

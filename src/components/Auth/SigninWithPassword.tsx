@@ -1,9 +1,8 @@
 "use client";
 import { EmailIcon, PasswordIcon } from "@/assets/icons";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import InputGroup from "../FormElements/InputGroup";
-import { Checkbox } from "../FormElements/checkbox";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
@@ -11,26 +10,11 @@ export default function SigninWithPassword() {
   const [data, setData] = useState({
     email: "",
     password: "",
-    remember: false,
   });
+  const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-
-  // Tải dữ liệu lưu từ localStorage nếu có
-  useEffect(() => {
-    const storedEmail = localStorage.getItem("remember_email");
-    const storedPass = localStorage.getItem("remember_password");
-    const remember = localStorage.getItem("remember_me") === "true";
-
-    if (remember && storedEmail && storedPass) {
-      setData({
-        email: storedEmail,
-        password: storedPass,
-        remember: true,
-      });
-    }
-  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData({
@@ -43,36 +27,28 @@ export default function SigninWithPassword() {
     e.preventDefault();
     setLoading(true);
     try {
-      // Gửi login request
       const response = await axios.post('https://api.scanvirus.me/Auth/login', {
         email: data.email,
         password: data.password,
       }, {
-        withCredentials: true   // <-- thêm dòng này
+        withCredentials: true 
       });
       
-      // Gửi lấy thông tin user
       const userRes = await axios.get('https://api.scanvirus.me/User/info', {
-        withCredentials: true   // <-- nhớ bật luôn
+        withCredentials: true  
       });
       window.dispatchEvent(new Event('update-header'));
-      // ✅ Redirect về trang chủ
+      
       router.push("/");
-      // Lưu thông tin nếu "Remember me" được bật
-      if (data.remember) {
-        localStorage.setItem("remember_email", data.email);
-        // localStorage.setItem("remember_password", data.password);
-        localStorage.setItem("remember_me", "true");
-      } else {
-        localStorage.removeItem("remember_email");
-        localStorage.removeItem("remember_password");
-        localStorage.removeItem("remember_me");
-      }
 
       setLoading(false);
-      // redirect hoặc xử lý tiếp theo ở đây...
-    } catch (error) {
-      console.error("Login failed:", error);
+    } catch (error: any) {
+      if(error.response && error.response.data === "Invalid credentials"){
+        setErrorMessage("Incorrect username or password.")
+      }
+      else{
+        setErrorMessage("An error occurred. Please try again later.")
+      }
       setLoading(false);
     }
   };
@@ -100,23 +76,10 @@ export default function SigninWithPassword() {
         handleChange={handleChange}
         value={data.password}
       />
-
-      <div className="mb-6 flex items-center justify-between gap-2 py-2 font-medium">
-        <Checkbox
-          label="Remember me"
-          name="remember"
-          withIcon="check"
-          minimal
-          radius="md"
-          checked={data.remember}
-          onChange={(e) =>
-            setData({
-              ...data,
-              remember: e.target.checked,
-            })
-          }
-        />
-
+      {errorMessage && (
+        <p className="pl-1 text-sm text-red">{errorMessage}</p>
+      )}
+      <div className="mt-1 mb-6 flex items-center justify-end gap-2 py-2 font-medium">
         <Link
           href="/auth/forgot-password"
           className="hover:text-primary dark:text-white dark:hover:text-primary"

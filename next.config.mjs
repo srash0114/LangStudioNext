@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  distDir: 'dist', // nếu bạn muốn build vào 'dist'
+  distDir: 'dist', // Thư mục build là 'dist'
+  // output: 'export', // Xuất nội dung tĩnh cho GitHub Pages
   images: {
+    unoptimized: true, // Vô hiệu hóa tối ưu hóa hình ảnh để tương thích với GitHub Pages
     remotePatterns: [
       {
         protocol: "https",

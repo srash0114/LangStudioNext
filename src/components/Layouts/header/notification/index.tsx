@@ -14,8 +14,8 @@ import { BellIcon } from "./icons";
 
 const notificationList = [
   {
-    image: "",
-    title: "Piter Joined the Team!",
+    image: "/images/user/park_shin_hye.jpg",
+    title: "Park Shin Hye Joined the Team!",
     subTitle: "Congratulate him",
   },
 ];
