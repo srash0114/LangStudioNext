@@ -20,7 +20,7 @@ export function GuestDropdown() {
         <figure className="flex items-center gap-3 rounded-full border-2 bg-gray-2 dark:border-dark-4 dark:bg-dark-3 dark:text-white dark:focus-visible:border-primary">
           <Image
 
-            src="https://image.phunuonline.com.vn/fckeditor/upload/2023/20231226/images/nguoi-dan-bac-kinh-thich-thu-_591703595247.jpg"
+            src="/images/user/park_shin_hye.jpg"
 
             className="size-12 rounded-full object-cover"
             alt="Avatar"

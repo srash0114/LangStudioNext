@@ -25,10 +25,9 @@ const nextConfig = {
         hostname: "avatars.githubusercontent.com"
       },
       {
-        protocol: "http",
+        protocol: "https",
         hostname: "api.scanvirus.me",
-        port: "9000",
-        pathname: "/file/**"
+        pathname: "/minio/file/**"
       },
       {
         protocol: "https",
