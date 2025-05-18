@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 
 
 export default async function RootLayout({ children }: PropsWithChildren) {
-    const user = await getUserFromCookie();
+  const user = await getUserFromCookie();
 
   if (!user) {
     redirect("/auth/sign-in");
