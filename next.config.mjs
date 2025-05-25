@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-
   images: {
     remotePatterns: [
       {
@@ -15,6 +14,11 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'api.scanvirus.me',
+        pathname: '/minio/file/**',
+      },
+      {
+        protocol: 'https',
         hostname: 'lh3.googleusercontent.com',
       },
       {
@@ -25,9 +29,12 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'pub-b7fd9c30cdbf439183b75041f5f71b92.r2.dev',
       },
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+      },
     ],
   },
-
   async headers() {
     return [
       {
@@ -37,14 +44,10 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              // Tạm thời giữ 'unsafe-eval' nếu cần cho thư viện bên thứ 3, nhưng nên loại bỏ nếu có thể
               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.youtube.com https://www.google.com https://apis.google.com",
               "style-src 'self' 'unsafe-inline'",
-              // Đảm bảo img-src bao gồm tất cả các nguồn hình ảnh
-              "img-src 'self' data: https://cdn.sanity.io https://lh3.googleusercontent.com https://avatars.githubusercontent.com https://pub-b7fd9c30cdbf439183b75041f5f71b92.r2.dev http://api.scanvirus.me:9000",
-              // Thêm connect-src nếu ứng dụng gọi API bên ngoài
+              "img-src 'self' data: https://cdn.sanity.io https://lh3.googleusercontent.com https://avatars.githubusercontent.com https://pub-b7fd9c30cdbf439183b75041f5f71b92.r2.dev https://api.scanvirus.me https://img.youtube.com",
               "connect-src 'self' http://api.scanvirus.me:9000 https://api.scanvirus.me",
-              // Thêm frame-src nếu nhúng YouTube hoặc các iframe khác
               "frame-src 'self' https://www.youtube.com https://www.google.com",
               "frame-ancestors 'none'",
             ].join('; '),
@@ -73,9 +76,8 @@ const nextConfig = {
       },
     ];
   },
-
   webpack: (config) => {
-    config.resolve.fallback = { fs: false, net: false, tls: false }; // Tránh lỗi khi build
+    config.resolve.fallback = { fs: false, net: false, tls: false };
     return config;
   },
 };
