@@ -1,43 +1,31 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  distDir: 'dist', // Thư mục build là 'dist'
-  // output: 'export', // Xuất nội dung tĩnh cho GitHub Pages
+
   images: {
-    // unoptimized: true, // Vô hiệu hóa tối ưu hóa hình ảnh để tương thích với GitHub Pages
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "cdn.sanity.io"
-      },
-      // {
-      //   protocol: "http",
-      //   hostname: "localhost",
-      //   port: "9000",
-      //   pathname: "/file/**"
-      // },
-      // {
-      //   protocol: "http",
-      //   hostname: "42.96.13.119"
-      // },
-      {
-        protocol: "https",
-        hostname: "lh3.googleusercontent.com"
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
       },
       {
-        protocol: "https",
-        hostname: "avatars.githubusercontent.com"
+        protocol: 'http',
+        hostname: 'api.scanvirus.me',
+        port: '9000',
+        pathname: '/file/**',
       },
       {
-        protocol: "http",
-        hostname: "api.scanvirus.me",
-        port: "9000",
-        pathname: "/file/**"
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
       },
       {
-        protocol: "https",
-        hostname: "pub-b7fd9c30cdbf439183b75041f5f71b92.r2.dev"
-      }
-    ]
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'pub-b7fd9c30cdbf439183b75041f5f71b92.r2.dev',
+      },
+    ],
   },
 
   async headers() {
@@ -47,7 +35,19 @@ const nextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://cdn.sanity.io https://lh3.googleusercontent.com https://avatars.githubusercontent.com https://pub-b7fd9c30cdbf439183b75041f5f71b92.r2.dev https://api.scanvirus.me; frame-ancestors 'none';",
+            value: [
+              "default-src 'self'",
+              // Tạm thời giữ 'unsafe-eval' nếu cần cho thư viện bên thứ 3, nhưng nên loại bỏ nếu có thể
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.youtube.com https://www.google.com https://apis.google.com",
+              "style-src 'self' 'unsafe-inline'",
+              // Đảm bảo img-src bao gồm tất cả các nguồn hình ảnh
+              "img-src 'self' data: https://cdn.sanity.io https://lh3.googleusercontent.com https://avatars.githubusercontent.com https://pub-b7fd9c30cdbf439183b75041f5f71b92.r2.dev http://api.scanvirus.me:9000",
+              // Thêm connect-src nếu ứng dụng gọi API bên ngoài
+              "connect-src 'self' http://api.scanvirus.me:9000 https://api.scanvirus.me",
+              // Thêm frame-src nếu nhúng YouTube hoặc các iframe khác
+              "frame-src 'self' https://www.youtube.com https://www.google.com",
+              "frame-ancestors 'none'",
+            ].join('; '),
           },
           {
             key: 'X-Frame-Options',
@@ -65,13 +65,17 @@ const nextConfig = {
             key: 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin',
           },
+          {
+            key: 'Permissions-Policy',
+            value: 'geolocation=(), microphone=(), camera=()',
+          },
         ],
       },
     ];
   },
-  
+
   webpack: (config) => {
-    config.resolve.fallback = { fs: false, net: false, tls: false }; // Tránh lỗi khi build static export
+    config.resolve.fallback = { fs: false, net: false, tls: false }; // Tránh lỗi khi build
     return config;
   },
 };
