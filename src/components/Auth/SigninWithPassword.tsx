@@ -55,13 +55,14 @@ export default function SigninWithPassword() {
 
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form method="POST" onSubmit={handleSubmit}>
       <InputGroup
         type="email"
         label="Email"
         className="mb-4 [&_input]:py-[15px]"
         placeholder="Enter your email"
         name="email"
+        autocomplete="username"
         handleChange={handleChange}
         value={data.email}
         icon={<EmailIcon />}
@@ -70,12 +71,15 @@ export default function SigninWithPassword() {
       <InputGroup
         type="password"
         label="Password"
-        className="mb-5 [&_input]:py-[15px]"
+        className="mb-5"
         placeholder="Enter your password"
         name="password"
+        autocomplete="current-password"
         handleChange={handleChange}
         value={data.password}
+        showPasswordToggle={true}
       />
+
       {errorMessage && (
         <p className="pl-1 text-sm text-red">{errorMessage}</p>
       )}

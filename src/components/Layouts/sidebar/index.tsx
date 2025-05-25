@@ -29,14 +29,14 @@ export function Sidebar() {
     NAV_DATA.some((section) => {
       return section.items.some((item) => {
         return item.items.some((subItem) => {
-          if (subItem.url === pathname) {
-            if (!expandedItems.includes(item.title)) {
-              toggleExpanded(item.title);
-            }
+          // if (subItem.url === pathname) {
+          //   if (!expandedItems.includes(item.title)) {
+          //     toggleExpanded(item.title);
+          //   }
 
-            // Break the loop
-            return true;
-          }
+          //   // Break the loop
+          //   return true;
+          // }
         });
       });
     });
@@ -121,7 +121,7 @@ export function Sidebar() {
                                 aria-hidden="true"
                               />
                             </MenuItem>
-
+{/* 
                             {expandedItems.includes(item.title) && (
                               <ul
                                 className="ml-9 mr-0 space-y-1.5 pb-[15px] pr-0 pt-2"
@@ -139,7 +139,7 @@ export function Sidebar() {
                                   </li>
                                 ))}
                               </ul>
-                            )}
+                            )} */}
                           </div>
                         ) : (
                           (() => {
@@ -147,8 +147,8 @@ export function Sidebar() {
                               "url" in item
                                 ? item.url + ""
                                 : "/" +
-                                  item.title.toLowerCase().split(" ").join("-");
-
+                                  item;
+                                  // item.title.toLowerCase().split(" ").join("-");
                             return (
                               <MenuItem
                                 className="flex items-center gap-3 py-3"

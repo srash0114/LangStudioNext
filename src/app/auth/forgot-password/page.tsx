@@ -1,12 +1,17 @@
+"use client";
 import Forgotpassword from "@/components/Auth/ForgotPasspages";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Forgot Password",
-};
+import { useRouter } from "next/navigation";
+import { useUser } from "@/app/UserContext";
 
 export default function Forgotages() {
+  const {userData, isLoadingAuth} = useUser();
+  const router = useRouter();
+  if (userData && isLoadingAuth) {
+    router.push("/");
+    return null;
+  }
   return (
     <>
       <Breadcrumb pageName="Forgot Password" />

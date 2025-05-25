@@ -14,8 +14,9 @@ import { LogOutIcon, SettingsIcon, UserIcon } from "./icons";
 import { useRouter } from "next/navigation";
 import { logout } from "@/fetch-data";
 import { GuestDropdown } from "./no-user";
-
-export function UserInfo({ userData }: { userData: User | null }) {
+import { useUser } from "@/app/UserContext";
+export function UserInfo() {
+  const { userData, isLoadingAuth } = useUser();
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
 
@@ -29,9 +30,13 @@ export function UserInfo({ userData }: { userData: User | null }) {
       alert("Logout failed!");
     }
   };
-
-  if (!userData) {
-    return <GuestDropdown />;
+  if(isLoadingAuth){
+      return null;
+  }
+  else{
+    if (!userData) {
+      return <GuestDropdown />;
+    }
   }
 
   return (

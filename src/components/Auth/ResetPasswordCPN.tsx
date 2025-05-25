@@ -97,6 +97,7 @@ export default function ResetWithToken() {
         name="newPassword"
         handleChange={handleChange}
         value={data.newPassword}
+        showPasswordToggle={true}
       />
       {errorMessage && (
         <p className="pl-1 text-sm text-red">{errorMessage}</p>

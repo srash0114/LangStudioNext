@@ -60,10 +60,11 @@ export function UpdatePassword() {
             </div>
         )}
         <input
-          className="form-datepicker w-full rounded-[7px] border-[1.5px] 
-          border-stroke bg-transparent px-5 py-3 font-normal outline-none 
-          transition focus:border-primary active:border-primary dark:border-dark-3 
-          dark:bg-dark-2 dark:focus:border-primary cursor-pointer"
+          className="w-full 
+          px-5 py-3 outline-none 
+          transition rounded-lg border border-gray-300 bg-transparent outline-none transition focus:ring-2 focus:ring-primary/20 
+          focus:border-primary disabled:cursor-default disabled:bg-gray-2 dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary 
+          dark:disabled:bg-dark cursor-pointer"
           placeholder="Change Password"
           data-class="flatpickr-right"
           readOnly
@@ -88,6 +89,7 @@ export function UpdatePassword() {
               placeholder="Old Password"
               handleChange={handleChange}
               required
+              showPasswordToggle={true}
             />
             <InputGroup
               className="mt-2.5"
@@ -97,6 +99,7 @@ export function UpdatePassword() {
               placeholder="New Password"
               handleChange={handleChange}
               required
+              showPasswordToggle={true}
             />
             <InputGroup
               className="mt-2 mb-4.5"
@@ -106,6 +109,7 @@ export function UpdatePassword() {
               placeholder="Re Password"
               handleChange={handleChange}
               required
+              showPasswordToggle={true}
             />
             <div className="flex justify-between">
               <button type="submit" className="rounded-lg bg-primary px-6 py-[7px] font-medium text-gray-2 hover:bg-opacity-90">Submit</button>

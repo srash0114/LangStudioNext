@@ -1,44 +1,24 @@
-// Place "use client" at the top of the file
 "use client";
 
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { PersonalInfoForm } from "./components-profile/personal-info";
 import { UploadPhotoForm } from "./components-profile/upload-photo";
 import { UpdatePassword } from "./components-profile/password-info";
-import { useState, useEffect, useCallback } from "react";
-import { getUserInfo, User } from "@/fetch-data";
-
-
+import { useRouter } from "next/navigation";
+import { useUser } from "@/app/UserContext";
 
 export default function SettingsPage() {
-  const [userData, setUserData] = useState<User | null>(null);
-
-  const fetchUserInfo = useCallback(async () => {
-    const data = await getUserInfo();
-    setUserData(data);
-  }, []);
-
-  useEffect(() => {
-    fetchUserInfo();
-
-    const handleUserLogin = () => {
-      fetchUserInfo();
-    };
-
-    window.addEventListener("update-header", handleUserLogin);
-
-    return () => {
-      window.removeEventListener("update-header", handleUserLogin);
-    };
-  }, [fetchUserInfo]);
-
-  if (!userData) {
+  const { userData, isLoadingAuth } = useUser();
+  const router = useRouter();
+  
+  if (!userData && !isLoadingAuth) {
+    router.push("/auth/sign-in");
     return null;
   }
 
   return (
     <div className="mx-auto w-full h-screen">
-      <Breadcrumb pageName="Profile" />
+      {/* <Breadcrumb pageName="Profile" /> */}
 
       <div className="grid grid-cols-5 gap-8">
         <div className="col-span-5 xl:col-span-3">

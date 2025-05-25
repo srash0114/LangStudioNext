@@ -1,5 +1,5 @@
 import * as Icons from "../icons";
-import { FaBrain, FaComments, FaPen } from "react-icons/fa";
+import { FaBrain, FaHeadphones, FaHistory } from "react-icons/fa";
 export const NAV_DATA = [
   {
     label: "MAIN MENU",
@@ -24,19 +24,31 @@ export const NAV_DATA = [
         items: [],
       },
       {
-        title: "Forms",
-        icon: Icons.Alphabet,
-        items: [
-          {
-            title: "Form Elements",
-            url: "/forms/form-elements",
-          },
-          {
-            title: "Form Layout",
-            url: "/forms/form-layout",
-          },
-        ],
+        title: "Listening",
+        url: "/listening",
+        icon: FaHeadphones,
+        items: [],
       },
+      {
+        title: "Video History",
+        url: "/videohistory",
+        icon: FaHistory,
+        items: [],
+      },
+      // {
+      //   title: "Forms",
+      //   icon: Icons.Alphabet,
+      //   items: [
+      //     {
+      //       title: "Form Elements",
+      //       url: "/forms/form-elements",
+      //     },
+      //     {
+      //       title: "Form Layout",
+      //       url: "/forms/form-layout",
+      //     },
+      //   ],
+      // },
       
 
     ],

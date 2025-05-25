@@ -126,6 +126,7 @@ export default function SignupPassword() {
         name="password"
         handleChange={handleChange}
         value={data.password}
+        showPasswordToggle={true}
       />
 
       {errorMessage && (
