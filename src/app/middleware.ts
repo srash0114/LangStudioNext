@@ -19,26 +19,25 @@ export function middleware(request: NextRequest) {
         "worker-src 'self'",
         "font-src 'self' data:",
       ].join('; '),
-      ...(origin && allowedOrigins.includes(origin)
-        ? {
-            'Access-Control-Allow-Origin': origin,
-            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-          }
-        : {}),
+      'X-Frame-Options': 'DENY',
     },
   });
 
-  // Loại bỏ Access-Control-Allow-Origin nếu origin không hợp lệ
-  if (origin && !allowedOrigins.includes(origin)) {
+  // Explicit CORS handling
+  if (origin && allowedOrigins.includes(origin)) {
+    response.headers.set('Access-Control-Allow-Origin', origin);
+    response.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  } else {
     response.headers.delete('Access-Control-Allow-Origin');
+    response.headers.delete('Access-Control-Allow-Methods');
+    response.headers.delete('Access-Control-Allow-Headers');
   }
 
   response.headers.set('X-Nonce', nonce);
   return response;
 }
 
-
 export const config = {
-  matcher: ['/', '/sitemap.xml', '/robots.txt', '/next/static/:path*']
+  matcher: ['/((?!_next|_api|_static|_image|favicon.ico).*)'], // Match all routes except Next.js internals and static assets
 };
