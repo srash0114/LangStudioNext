@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 
 export function middleware(request: NextRequest) {
-  const nonce = uuidv4(); // Tạo nonce ngẫu nhiên
+  const nonce = uuidv4();
   const origin = request.headers.get('origin');
   const allowedOrigins = ['https://lang-studio-next.vercel.app'];
 
@@ -29,12 +29,10 @@ export function middleware(request: NextRequest) {
     },
   });
 
-  // Truyền nonce cho client (nếu cần)
   response.headers.set('X-Nonce', nonce);
-
   return response;
 }
 
 export const config = {
-  matcher: '/', // Áp dụng cho tất cả các route
+  matcher: '/',
 };
