@@ -45,11 +45,13 @@ const nextConfig = {
             value: [
               "default-src 'self'",
               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.youtube.com https://www.google.com https://apis.google.com",
-              "style-src 'self' 'unsafe-inline'",
+              "style-src 'self'", // Loại bỏ 'unsafe-inline'
               "img-src 'self' data: https://cdn.sanity.io https://lh3.googleusercontent.com https://avatars.githubusercontent.com https://pub-b7fd9c30cdbf439183b75041f5f71b92.r2.dev https://api.scanvirus.me https://img.youtube.com",
               "connect-src 'self' http://api.scanvirus.me:9000 https://api.scanvirus.me",
               "frame-src 'self' https://www.youtube.com https://www.google.com",
               "frame-ancestors 'none'",
+              "worker-src 'self'",
+              "font-src 'self' data:",
             ].join('; '),
           },
           {
