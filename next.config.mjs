@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    optimizeCss: false, // Tắt tối ưu CSS, bao gồm preload
+    optimizeCss: false,
   },
   images: {
     remotePatterns: [

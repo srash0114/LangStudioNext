@@ -1,10 +1,9 @@
-'use client';
-
+// EssayChecker.tsx
 import { useState, useEffect, useRef } from 'react';
 import EssayForm from './EssayForm';
-import EssayResult  from './EssayResult';
+import EssayResult from './EssayResult';
 import EssaySidebar from './EssaySidebar';
-import { EssayFormData, EssayResult as EssayResultType , EssayHistory } from './types';
+import { EssayFormData, EssayResult as EssayResultType, EssayHistory } from './types';
 import axios from 'axios';
 
 export default function EssayChecker() {
@@ -22,15 +21,18 @@ export default function EssayChecker() {
   const [historyLoading, setHistoryLoading] = useState<boolean>(false);
   const [historyError, setHistoryError] = useState<string | null>(null);
 
-  const fetchEssayHistory = async () => {
+  const fetchEssayHistory = async (page: number, append: boolean = false) => {
     setHistoryLoading(true);
     setHistoryError(null);
     try {
       const { data } = await axios.get('https://api.scanvirus.me/Writing/history', {
-        params: { page: '1', pageSize: '20' },
+        params: { page: page.toString(), pageSize: essayHistory.pageSize.toString() },
         withCredentials: true,
       });
-      setEssayHistory(data);
+      setEssayHistory((prev) => ({
+        ...data,
+        essays: append ? [...prev.essays, ...data.essays] : data.essays,
+      }));
     } catch (error) {
       setHistoryError('Failed to fetch essay history');
       console.error(error);
@@ -40,9 +42,8 @@ export default function EssayChecker() {
   };
 
   useEffect(() => {
-    fetchEssayHistory();
+    fetchEssayHistory(1);
   }, []);
-
 
   const sidebarRef = useRef<HTMLDivElement>(null);
 
@@ -90,6 +91,7 @@ export default function EssayChecker() {
         setResult={setResult}
         setIsFlipped={setIsFlipped}
         setIsSidebarOpen={setIsSidebarOpen}
+        fetchEssayHistory={fetchEssayHistory} // Pass fetchEssayHistory to EssaySidebar
       />
       <div className="flip-container">
         <div className={`flip-card ${isFlipped ? 'flipped' : ''}`}>

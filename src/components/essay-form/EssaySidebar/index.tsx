@@ -1,8 +1,9 @@
+// EssaySidebar.tsx
 import { useRef } from 'react';
 import { EssayResult, EssayHistory } from '../types';
 
 interface EssaySidebarProps {
-  sidebarRef: React.RefObject<HTMLDivElement|null>;
+  sidebarRef: React.RefObject<HTMLDivElement | null>;
   isSidebarOpen: boolean;
   toggleSidebar: () => void;
   essayHistory: EssayHistory;
@@ -11,6 +12,7 @@ interface EssaySidebarProps {
   setResult: React.Dispatch<React.SetStateAction<EssayResult | null>>;
   setIsFlipped: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  fetchEssayHistory: (page: number, append?: boolean) => void; // Add fetchEssayHistory prop
 }
 
 export default function EssaySidebar({
@@ -22,12 +24,18 @@ export default function EssaySidebar({
   historyError,
   setResult,
   setIsFlipped,
-  setIsSidebarOpen
+  setIsSidebarOpen,
+  fetchEssayHistory,
 }: EssaySidebarProps) {
   const handleEssayClick = (essay: EssayResult) => {
     setResult(essay);
     setIsFlipped(true);
     setIsSidebarOpen(false);
+  };
+
+  const handleLoadMore = () => {
+    const nextPage = essayHistory.page + 1;
+    fetchEssayHistory(nextPage, true); // Fetch next page and append
   };
 
   const formatDate = (isoString: string) => {
@@ -69,27 +77,42 @@ export default function EssaySidebar({
             />
           </svg>
         </button>
-        {historyLoading ? (
+        {historyLoading && essayHistory.essays.length === 0 ? (
           <p>Loading history...</p>
         ) : historyError ? (
           <p className="text-red-500">{historyError}</p>
         ) : essayHistory.essays.length > 0 ? (
-          <ul className="space-y-4">
-            {essayHistory.essays.map((essay) => (
-              <li
-                key={essay.id}
-                className="border-b border-gray-700 pb-2 cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-300 p-2 rounded"
-                onClick={() => handleEssayClick(essay)}
-                aria-hidden="true"
+          <>
+            <ul className="space-y-4">
+              {essayHistory.essays.map((essay) => (
+                <li
+                  key={essay.id}
+                  className="border-b border-gray-700 pb-2 cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-300 p-2 rounded"
+                  onClick={() => handleEssayClick(essay)}
+                  aria-hidden="true"
+                >
+                  <h3 className="text-lg font-semibold truncate">{essay.title}</h3>
+                  <p className="text-sm"><strong>Band Score:</strong> {essay.bandScore}</p>
+                  <p className="text-sm"><strong>Target:</strong> {essay.targetBandScore}</p>
+                  <p className="text-sm"><strong>Feedback:</strong> {essay.feedback.slice(0, 100)}...</p>
+                  <p className="text-xs text-gray-400"><strong>Created:</strong> {formatDate(essay.createdAt)}</p>
+                </li>
+              ))}
+            </ul>
+            {essayHistory.essays.length >= essayHistory.page * essayHistory.pageSize && (
+              <button
+                onClick={handleLoadMore}
+                disabled={historyLoading}
+                className={`mt-4 w-full py-2 px-4 rounded text-white ${
+                  historyLoading
+                    ? 'bg-gray-500 cursor-not-allowed'
+                    : 'bg-blue-500 hover:bg-blue-600'
+                }`}
               >
-                <h3 className="text-lg font-semibold truncate">{essay.title}</h3>
-                <p className="text-sm"><strong>Band Score:</strong> {essay.bandScore}</p>
-                <p className="text-sm"><strong>Target:</strong> {essay.targetBandScore}</p>
-                <p className="text-sm"><strong>Feedback:</strong> {essay.feedback.slice(0, 100)}...</p>
-                <p className="text-xs text-gray-400"><strong>Created:</strong> {formatDate(essay.createdAt)}</p>
-              </li>
-            ))}
-          </ul>
+                {historyLoading ? 'Loading...' : 'Load More'}
+              </button>
+            )}
+          </>
         ) : (
           <p>No essay history available.</p>
         )}

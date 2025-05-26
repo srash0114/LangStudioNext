@@ -29,10 +29,16 @@ export function middleware(request: NextRequest) {
     },
   });
 
+  // Loại bỏ Access-Control-Allow-Origin nếu origin không hợp lệ
+  if (origin && !allowedOrigins.includes(origin)) {
+    response.headers.delete('Access-Control-Allow-Origin');
+  }
+
   response.headers.set('X-Nonce', nonce);
   return response;
 }
 
+
 export const config = {
-  matcher: '/',
+  matcher: ['/', '/sitemap.xml', '/robots.txt', '/next/static/:path*']
 };
