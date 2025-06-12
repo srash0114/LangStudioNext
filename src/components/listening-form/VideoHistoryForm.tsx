@@ -49,7 +49,7 @@ const VideoHistoryForm = () => {
       if (newVideos.length < 12) setHasMore(false);
     } catch (error) {
       console.error('Error fetching video history:', error);
-      setError('Failed to load video history');
+      // setError('Failed to load video history');
     } finally {
       setLoading(false);
     }

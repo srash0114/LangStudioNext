@@ -53,7 +53,8 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({ userData }) 
   };
 
   if(!userData){
-    return ("vui lòng đăng nhập");
+    return ;
+    // ("vui lòng đăng nhập")
   }
   return (
     <ShowcaseSection title="Personal Information" className="!p-7">

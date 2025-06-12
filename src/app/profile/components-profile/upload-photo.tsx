@@ -16,7 +16,7 @@ export const UploadPhotoForm: React.FC<PersonalInfoFormProps> = ({ userData }) =
   const [previewUrl, setPreviewUrl] = useState<string | null>(null); // For image preview
 
   if (!userData) {
-    return <div>Vui lòng đăng nhập</div>;
+    // return <div>Please Signin</div>;
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -137,7 +137,7 @@ export const UploadPhotoForm: React.FC<PersonalInfoFormProps> = ({ userData }) =
             type="submit"
             disabled={isLoading}
           >
-            {isLoading ? "Đang lưu..." : "Save"}
+            {isLoading ? "Saving..." : "Save"}
           </button>
         </div>
       </form>

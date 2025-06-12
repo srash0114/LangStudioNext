@@ -24,7 +24,7 @@ export default function EssayResult({ result, toggleSidebar, handleFlip }: Essay
       <h2 className="flex items-center justify-between border-b border-stroke px-4 py-4 font-medium text-dark dark:border-dark-3 dark:text-white sm:px-6 xl:px-7.5">
         <button
           onClick={toggleSidebar}
-          className="rounded-lg bg-green-600 p-[10px] font-medium hover:bg-opacity-90"
+          className="rounded-lg bg-primary p-[13px] font-medium text-white hover:bg-opacity-90 mt-5"
         >
           <svg
             width="24"
@@ -50,7 +50,7 @@ export default function EssayResult({ result, toggleSidebar, handleFlip }: Essay
         <button
           onClick={handleFlip}
           type="button"
-          className="rounded-lg bg-green-600 p-[10px] font-medium hover:bg-opacity-90"
+          className="rounded-lg bg-primary p-[13px] font-medium text-white hover:bg-opacity-90 mt-5"
         >
           <svg
             width="24"

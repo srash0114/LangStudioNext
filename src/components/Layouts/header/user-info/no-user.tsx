@@ -20,7 +20,7 @@ export function GuestDropdown() {
         <figure className="flex items-center gap-3 rounded-full border-2 bg-gray-2 dark:border-dark-4 dark:bg-dark-3 dark:text-white dark:focus-visible:border-primary">
           <Image
 
-            src="https://api.scanvirus.me/minio/file/d20e4d68-054a-4b83-af17-d0f8a8840854_park_shin_hye.jpg"
+            src="https://api.scanvirus.me/minio/file/343b096a-62eb-4053-8d88-2a3076977b7f_park_shin_hye.jpg"
 
             className="size-12 rounded-full object-cover"
             alt="Avatar"

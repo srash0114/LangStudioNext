@@ -259,14 +259,14 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoPlayerProps>(
             placeholder="Enter YouTube URL..."
             value={inputUrl}
             onChange={(e) => setInputUrl(e.target.value)}
-            className="flex-1 p-2 w-full rounded-lg border border-gray-300 bg-transparent outline-none transition 
+            className="flex-1 p-2 w-full rounded border border-gray-300 bg-transparent outline-none transition 
             focus:ring-2 focus:ring-primary/20 focus:border-primary disabled:cursor-default disabled:bg-gray-2 
             data-[active=true]:border-primary dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary dark:disabled:bg-dark 
             dark:data-[active=true]:border-primary text-dark dark:text-white"
           />
           <button
             onClick={() => handleLoadVideo(inputUrl)}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition "
+            className="rounded bg-primary hover:bg-opacity-90 p-[13px] font-medium text-white ring-2 ring-primary/20 border-primary"
           >
             Load
           </button>

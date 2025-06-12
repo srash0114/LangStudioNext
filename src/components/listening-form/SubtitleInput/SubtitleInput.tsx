@@ -244,8 +244,8 @@ const SubtitleInput = ({
 
       <div className="flex items-center space-x-2">
         <button
-          className={`px-3 py-3 text-white rounded hover:bg-blue-700 disabled:opacity-50 ring-2 ring-primary/20 ${
-            isRecognizing ? 'bg-red-600' : 'bg-blue-600'
+          className={`px-3 py-3 text-white rounded hover:bg-opacity-90 disabled:opacity-50 ring-2 ring-primary/20 ${
+            isRecognizing ? 'bg-red-600' : 'bg-primary'
           }`}
           onClick={handleSpeechToggle}
           disabled={!selectedSubtitle || !recognition}
@@ -253,7 +253,7 @@ const SubtitleInput = ({
           {isRecognizing ? <FaStop /> : <FaMicrophone />}
         </button>
         <button
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50 ring-2 ring-primary/20"
+          className="bg-primary hover:bg-opacity-90 text-white px-4 py-2 rounded disabled:opacity-50 ring-2 ring-primary/20"
           onClick={handleEasy}
           disabled={!selectedSubtitle}
         >

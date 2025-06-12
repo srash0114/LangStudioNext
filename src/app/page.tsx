@@ -45,78 +45,78 @@ const testimonials = [
 
 export default async function Home({ searchParams }: PropsType) {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white">
-      <header className="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-12 px-6 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">Learn English Smarter</h1>
-        <p className="text-lg md:text-xl mb-6">Your personalized journey to fluency with AI-powered tools.</p>
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-50">
+      <header className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-16 px-4 sm:px-6 lg:px-8 text-center">
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4">Learn English Smarter</h1>
+        <p className="text-lg sm:text-xl lg:text-2xl max-w-3xl mx-auto mb-6">Your personalized journey to fluency with AI-powered tools.</p>
         <Link
           href="/essay-checker"
-          className="inline-block bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition"
+          className="inline-flex items-center px-6 py-3 bg-white text-indigo-600 text-base font-semibold rounded-md shadow-sm hover:bg-gray-200 transition-colors duration-200"
         >
           Get Started
         </Link>
       </header>
 
-      <section className="py-12 px-6 text-center">
-        <h2 className="text-3xl font-semibold mb-4">Why Choose Our App?</h2>
-        <p className="text-lg max-w-2xl mx-auto dark:text-gray-300">
-          Our app combines cutting-edge AI technology with personalized learning to help you master English efficiently. Whether you are preparing for IELTS, improving your writing, or enhancing your listening skills, we&apos;ve got you covered.
+      <section className="py-16 px-4 sm:px-6 lg:px-8 text-center">
+        <h2 className="text-3xl sm:text-4xl font-bold mb-4">Why Choose Our App?</h2>
+        <p className="text-base sm:text-lg max-w-3xl mx-auto text-gray-600 dark:text-gray-300">
+          Our app combines cutting-edge AI technology with personalized learning to help you master English efficiently. Whether you are preparing for IELTS, improving your writing, or enhancing your listening skills, we've got you covered.
         </p>
       </section>
 
-      <section className="py-12 px-6">
-        <h2 className="text-3xl font-semibold text-center mb-8">Our Features</h2>
-        <main className="shadow-1 p-6 grid grid-cols-1 md:grid-cols-2 gap-6 dark:shadow-card">
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-8">Our Features</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
           {features.map((item, index) => (
             <Link
               href={item.href}
               key={index}
-              className="bg-purple-700 text-white p-6 rounded-xl shadow-lg hover:scale-105 transition-transform hover:bg-purple-800 hover:shadow-2xl"
+              className="group bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 hover:bg-indigo-50 dark:hover:bg-gray-700"
             >
-              <div className="bg-pink-400 w-14 h-14 flex items-center justify-center rounded-xl mb-4">
+              <div className="bg-indigo-100 dark:bg-indigo-900 w-14 h-14 flex items-center justify-center rounded-md mb-4 group-hover:bg-indigo-200 dark:group-hover:bg-indigo-800 transition-colors">
                 {item.icon}
               </div>
-              <h2 className="text-2xl font-bold mb-1">{item.title}</h2>
-              <p className="text-lg font-medium mb-2">{item.subtitle}</p>
-              <p className="text-sm text-white">{item.desc}</p>
+              <h2 className="text-xl font-semibold mb-1">{item.title}</h2>
+              <p className="text-base font-medium text-gray-600 dark:text-gray-300 mb-2">{item.subtitle}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">{item.desc}</p>
             </Link>
           ))}
-        </main>
+        </div>
       </section>
 
-      <section className="py-12 px-6 bg-gray-100 dark:bg-gray-800">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-200 dark:bg-gray-900">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-5xl mx-auto text-center">
           {stats.map((stat, index) => (
             <div key={index} className="p-6">
-              <h3 className="text-4xl font-bold text-purple-600 dark:text-purple-400">{stat.value}</h3>
-              <p className="text-lg mt-2 dark:text-gray-300">{stat.label}</p>
+              <h3 className="text-3xl sm:text-4xl font-bold text-indigo-600 dark:text-indigo-400">{stat.value}</h3>
+              <p className="text-base sm:text-lg mt-2 text-gray-600 dark:text-gray-300">{stat.label}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="py-12 px-6">
-        <h2 className="text-3xl font-semibold text-center mb-8">What Our Users Say</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-8">What Our Users Say</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-gray-dark p-6 rounded-xl shadow-md dark:shadow-card"
+              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
             >
-              <p className="text-lg italic mb-4 dark:text-gray-300">{`"${testimonial.quote}"`}</p>
-              <p className="font-semibold">{testimonial.name}</p>
+              <p className="text-base italic mb-4 text-gray-600 dark:text-gray-300">{`"${testimonial.quote}"`}</p>
+              <p className="text-base font-semibold">{testimonial.name}</p>
               <p className="text-sm text-gray-500 dark:text-gray-400">{testimonial.role}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="py-12 px-6 text-center bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-        <h2 className="text-3xl font-semibold mb-4">Ready to Start Learning?</h2>
-        <p className="text-lg mb-6">Join thousands of learners and take your English skills to the next level.</p>
+      <section className="py-16 px-4 sm:px-6 lg:px-8 text-center bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+        <h2 className="text-3xl sm:text-4xl font-bold mb-4">Ready to Start Learning?</h2>
+        <p className="text-base sm:text-lg mb-6 max-w-3xl mx-auto">Join thousands of learners and take your English skills to the next level.</p>
         <Link
           href="/listening"
-          className="inline-block bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition"
+          className="inline-flex items-center px-6 py-3 bg-white text-indigo-600 text-base font-semibold rounded-md shadow-sm hover:bg-gray-200 transition-colors duration-200"
         >
           Start Learning Now
         </Link>

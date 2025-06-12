@@ -27,25 +27,27 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
-        <Providers>
-          <UserProvider>
-          <NextTopLoader color="#5750F1" showSpinner={false} />
+      <UserProvider>
+        <body>
+          <Providers>
+            
+            <NextTopLoader color="#5750F1" showSpinner={false} />
 
-          <div className="flex min-h-screen">
-            <Sidebar />
+            <div className="flex min-h-screen">
+              <Sidebar />
 
-            <div className="flex flex-col flex-1 bg-gray-2 dark:bg-[#020d1a] overflow-y-auto h-screen ">
-              <Header />
-              <main className="flex-1 w-full max-w-screen-2xl mx-auto p-4 md:p-6 2xl:p-10">
-                {children}
-              </main>
+              <div className="flex flex-col flex-1 bg-gray-2 dark:bg-[#020d1a] overflow-y-auto h-screen ">
+                <Header />
+                <main className="flex-1 w-full max-w-screen-2xl mx-auto p-4 md:p-6 2xl:p-10">
+                  {children}
+                </main>
+              </div>
+
             </div>
-
-          </div>
-          </UserProvider>
-        </Providers>
-      </body>
+            
+          </Providers>
+        </body>
+      </UserProvider>
     </html>
   );
 }
