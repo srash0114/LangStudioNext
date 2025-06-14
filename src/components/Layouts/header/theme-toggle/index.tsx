@@ -41,7 +41,7 @@ export function ThemeToggleSwitch({ userData }: { userData: User | null }) {
       setLocalUserData(userData);
       setTheme(userData.isDarkMode ? "dark" : "light");
     }
-  }, [userData]);
+  }, [userData, setTheme]);
   const handleToggleTheme = async () => {
     if (!theme) {
       console.error("Theme is undefined");
