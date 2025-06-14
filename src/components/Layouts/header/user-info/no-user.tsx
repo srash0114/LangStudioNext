@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import parkShinHye from '@/assets/user/park_shin_hye.jpg';
 
 export function GuestDropdown() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,11 +21,11 @@ export function GuestDropdown() {
         <figure className="flex items-center gap-3 rounded-full border-2 bg-gray-2 dark:border-dark-4 dark:bg-dark-3 dark:text-white dark:focus-visible:border-primary">
           <Image
 
-            src="https://api.scanvirus.me/minio/file/343b096a-62eb-4053-8d88-2a3076977b7f_park_shin_hye.jpg"
+            src={parkShinHye}
 
             className="size-12 rounded-full object-cover"
             alt="Avatar"
-            role="presentation"
+            role="img"
             width={200}
             height={200}
           />
