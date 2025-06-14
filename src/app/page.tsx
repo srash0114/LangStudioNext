@@ -60,7 +60,7 @@ export default async function Home({ searchParams }: PropsType) {
       <section className="py-16 px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-3xl sm:text-4xl font-bold mb-4">Why Choose Our App?</h2>
         <p className="text-base sm:text-lg max-w-3xl mx-auto text-gray-600 dark:text-gray-300">
-          Our app combines cutting-edge AI technology with personalized learning to help you master English efficiently. Whether you are preparing for IELTS, improving your writing, or enhancing your listening skills, we've got you covered.
+          Our app combines cutting-edge AI technology with personalized learning to help you master English efficiently. Whether you are preparing for IELTS, improving your writing, or enhancing your listening skills, we&apos;ve got you covered.
         </p>
       </section>
 
@@ -103,7 +103,7 @@ export default async function Home({ searchParams }: PropsType) {
               key={index}
               className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
             >
-              <p className="text-base italic mb-4 text-gray-600 dark:text-gray-300">{`"${testimonial.quote}"`}</p>
+              <p className="text-base italic mb-4 text-gray-600 dark:text-gray-300">{testimonial.quote}</p>
               <p className="text-base font-semibold">{testimonial.name}</p>
               <p className="text-sm text-gray-500 dark:text-gray-400">{testimonial.role}</p>
             </div>
