@@ -1,16 +1,11 @@
+
 import type { SVGProps } from "react";
 
 type SVGPropsType = SVGProps<SVGSVGElement>;
 
 export function UserIcon(props: SVGPropsType) {
   return (
-    <svg
-      width={20}
-      height={20}
-      viewBox="0 0 18 18"
-      fill="currentColor"
-      {...props}
-    >
+    <svg width={20} height={20} viewBox="0 0 18 18" fill="currentColor" {...props}>
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -29,7 +24,7 @@ export function IconSignUp(props: SVGPropsType) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.5" 
+      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
       {...props}
@@ -60,13 +55,7 @@ export function Authentication(props: SVGPropsType) {
 
 export function SettingsIcon(props: SVGPropsType) {
   return (
-    <svg
-      width={20}
-      height={20}
-      viewBox="0 0 18 18"
-      fill="currentColor"
-      {...props}
-    >
+    <svg width={20} height={20} viewBox="0 0 18 18" fill="currentColor" {...props}>
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -83,13 +72,7 @@ export function SettingsIcon(props: SVGPropsType) {
 
 export function LogOutIcon(props: SVGPropsType) {
   return (
-    <svg
-      width={20}
-      height={20}
-      viewBox="0 0 18 18"
-      fill="currentColor"
-      {...props}
-    >
+    <svg width={20} height={20} viewBox="0 0 18 18" fill="currentColor" {...props}>
       <g clipPath="url(#clip0_7095_11691)">
         <path d="M11.209.938c-1.026 0-1.852 0-2.503.087-.675.09-1.243.285-1.695.736-.393.394-.592.878-.697 1.446-.101.553-.12 1.229-.125 2.04a.562.562 0 101.125.006c.005-.82.026-1.401.107-1.842.078-.426.203-.672.386-.854.207-.208.499-.343 1.05-.417.566-.076 1.317-.078 2.393-.078H12c1.077 0 1.828.002 2.394.078.55.074.842.21 1.05.417.207.207.342.499.416 1.05.077.566.078 1.316.078 2.393v6c0 1.077-.002 1.827-.078 2.394-.074.55-.209.842-.417 1.05-.207.207-.499.342-1.049.416-.566.076-1.317.078-2.394.078h-.75c-1.076 0-1.827-.002-2.394-.078-.55-.074-.842-.21-1.05-.417-.182-.182-.307-.428-.385-.854-.081-.44-.102-1.022-.107-1.842a.563.563 0 00-1.125.006c.004.811.024 1.487.125 2.04.105.568.304 1.052.697 1.446.452.451 1.02.645 1.695.736.65.087 1.477.087 2.503.087h.832c1.026 0 1.853 0 2.503-.087.675-.09 1.243-.285 1.695-.736.451-.452.645-1.02.736-1.695.088-.65.088-1.477.088-2.503V5.96c0-1.026 0-1.853-.088-2.503-.09-.675-.285-1.243-.736-1.695-.452-.451-1.02-.645-1.695-.736-.65-.088-1.477-.088-2.503-.087h-.832z" />
         <path d="M11.25 8.438a.562.562 0 110 1.124H3.02l1.471 1.26a.563.563 0 01-.732.855l-2.625-2.25a.562.562 0 010-.854l2.625-2.25a.562.562 0 11.732.854l-1.47 1.26h8.229z" />
@@ -99,6 +82,18 @@ export function LogOutIcon(props: SVGPropsType) {
           <rect width={18} height={18} rx={5} />
         </clipPath>
       </defs>
+    </svg>
+  );
+}
+
+export function StarIcon(props: SVGPropsType) {
+  return (
+    <svg width={20} height={20} viewBox="0 0 18 18" fill="currentColor" {...props}>
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M9 2.25l2.475 5.01 5.535.81-4.005 3.905.945 5.505L9 14.715l-4.95 2.765.945-5.505-4.005-3.905 5.535-.81L9 2.25zm0 2.295l-1.755 3.555-3.99.585 2.88 2.805-.675 3.915L9 13.455l3.54 1.86-.675-3.915 2.88-2.805-3.99-.585L9 4.545z"
+      />
     </svg>
   );
 }

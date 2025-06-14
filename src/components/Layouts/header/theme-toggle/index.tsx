@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import { Moon, Sun } from "./icons";
 import { User } from "@/fetch-data";
@@ -25,7 +25,7 @@ async function updateDarkMode(isDarkMode: boolean, onSuccess: () => void) {
     console.log("API response:", response.data);
     onSuccess();
   } catch (error: any) {
-    console.error("Failed to update theme preference:", error)
+    console.error("Failed to update theme preference:", error);
   }
 }
 
@@ -34,20 +34,24 @@ export function ThemeToggleSwitch({ userData }: { userData: User | null }) {
   const [mounted, setMounted] = useState(false);
   const [localUserData, setLocalUserData] = useState<User | null>(userData);
 
+  // Memoize userData to ensure stable reference
+  const stableUserData = useMemo(() => userData, [userData]);
+
   useEffect(() => {
     setMounted(true);
-    if (userData) {
-      console.log("userData.isDarkMode:", userData.isDarkMode);
-      setLocalUserData(userData);
-      setTheme(userData.isDarkMode ? "dark" : "light");
+    if (stableUserData) {
+      console.log("stableUserData.isDarkMode:", stableUserData.isDarkMode);
+      setLocalUserData(stableUserData);
+      setTheme(stableUserData.isDarkMode ? "dark" : "light");
     }
-  }, [userData, setTheme]);
+  }, [stableUserData]);
+
   const handleToggleTheme = async () => {
     if (!theme) {
       console.error("Theme is undefined");
       return;
     }
-    
+
     const newTheme = theme === "light" ? "dark" : "light";
     console.log("Switching to theme:", newTheme);
     setTheme(newTheme);

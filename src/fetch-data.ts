@@ -1,13 +1,15 @@
 import axios from "axios";
+import parkShinHye from '@/assets/user/park_shin_hye.jpg';
 
 export interface User {
   fullName: string;
   email: string;
   avatarUrl: string;
   isDarkMode: boolean;
+  isPro: boolean;
 }
 
-const DEFAULT_AVATAR_URL = "https://api.scanvirus.me/minio/file/343b096a-62eb-4053-8d88-2a3076977b7f_park_shin_hye.jpg"; // Thay bằng URL mặc định bạn muốn
+const DEFAULT_AVATAR_URL = parkShinHye.src; // Thay bằng URL mặc định bạn muốn
 
 // Hàm lấy thông tin người dùng
 export async function getUserInfo(): Promise<User | null> {
