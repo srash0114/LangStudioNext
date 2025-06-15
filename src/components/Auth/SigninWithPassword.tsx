@@ -50,6 +50,7 @@ export default function SigninWithPassword() {
       }
       else{
         // setErrorMessage("An error occurred. Please try again later.")
+        setErrorMessage("");
         setPopup(true)
         const timer = setTimeout(() => {
           setPopup(false)
