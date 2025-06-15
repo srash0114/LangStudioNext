@@ -88,7 +88,7 @@ const VideoHistoryForm = () => {
                   <Link
                     key={video.id}
                     href={`/listening?vid=${btoa(video.linkVideo)}`}
-                    className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 overflow-hidden block cursor-pointer ring-2 ring-primary/10 border-dashed border border-purple-600 dark:ring-purple/10 hover:mt-1"
+                    className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 overflow-hidden block cursor-pointer ring-2 ring-primary/10 dark:ring-purple/10 hover:mt-1"
                     aria-label={`Watch ${video.title}`}
                   >
                     <div className="relative h-32">
