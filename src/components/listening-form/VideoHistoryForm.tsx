@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRef } from 'react';
-
+import ErrorMs from '@/components/ErrorNetWork/ErrorNetWork';
 
 interface VideoItem {
   id: string;
@@ -23,7 +23,7 @@ const VideoHistoryForm = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-
+  const [popup, setPopup] = useState(false);
   const getYouTubeVideoId = (url: string): string | null => {
     try {
       const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
@@ -50,6 +50,11 @@ const VideoHistoryForm = () => {
     } catch (error) {
       console.error('Error fetching video history:', error);
       // setError('Failed to load video history');
+              // setErrorMessage("An error occurred. Please try again later.")
+        setPopup(true)
+        const timer = setTimeout(() => {
+          setPopup(false)
+        }, 3000);
     } finally {
       setLoading(false);
     }
@@ -69,7 +74,7 @@ const VideoHistoryForm = () => {
   return (
     <div className="w-full p-4 min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white mt-10">Video History</h2>
+        <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white mt-5 text-center">Video History</h2>
         {error && <div className="text-red-500 text-sm mb-6">{error}</div>}
 
         {videos.length > 0 ? (
@@ -83,7 +88,7 @@ const VideoHistoryForm = () => {
                   <Link
                     key={video.id}
                     href={`/listening?vid=${btoa(video.linkVideo)}`}
-                    className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 overflow-hidden block cursor-pointer ring-2 ring-primary/10"
+                    className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 overflow-hidden block cursor-pointer ring-2 ring-primary/10 border-dashed border border-purple-600 dark:ring-purple/10 hover:mt-1"
                     aria-label={`Watch ${video.title}`}
                   >
                     <div className="relative h-32">
@@ -122,7 +127,11 @@ const VideoHistoryForm = () => {
           </>
         ) : (
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 text-center">
-            <p className="text-gray-500 dark:text-gray-400 text-lg">No video history available.</p>
+            {/* <p className="text-gray-500 dark:text-gray-400 text-lg">No video history available.</p> */}
+            {popup && (
+              <ErrorMs color='warning' message='Something went wrong. Please try again later' timeout={3000}></ErrorMs>
+            )}
+            
           </div>
         )}
       </div>

@@ -39,7 +39,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         {subtitles.map((sub) => (
           <div
             key={sub.id}
-            className={`p-2 rounded cursor-pointer border border-gray-300 dark:border-gray-700 transition ${
+            className={`p-2 rounded cursor-pointer border border-purple-600 dark:border-indigo-800 border-dashed transition ${
               selectedSubtitleId === sub.id
                 ? "bg-blue-100 dark:bg-blue-800 hover:bg-gray-200 dark:hover:bg-gray-700"
                 : "bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"

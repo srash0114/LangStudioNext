@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import InputGroup from "../FormElements/InputGroup";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import ErrorMs from '@/components/ErrorNetWork/ErrorNetWork';
 
 export default function SigninWithPassword() {
   const [data, setData] = useState({
@@ -14,7 +15,7 @@ export default function SigninWithPassword() {
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-
+  const [popup, setPopup] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData({
@@ -45,9 +46,14 @@ export default function SigninWithPassword() {
     } catch (error: any) {
       if(error.response && error.response.data === "Invalid credentials"){
         setErrorMessage("Incorrect username or password.")
+        
       }
       else{
-        setErrorMessage("An error occurred. Please try again later.")
+        // setErrorMessage("An error occurred. Please try again later.")
+        setPopup(true)
+        const timer = setTimeout(() => {
+          setPopup(false)
+        }, 6000);
       }
       setLoading(false);
     }
@@ -104,6 +110,9 @@ export default function SigninWithPassword() {
         </button>
         
       </div>
+      {popup && (
+        <ErrorMs color='warning' message='Something went wrong. Please try again later' timeout={6000}></ErrorMs>
+      )}
       
     </form>
   );

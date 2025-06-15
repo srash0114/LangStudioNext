@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
-import { YoutubeTranscript } from 'youtube-transcript';
 
 // Extracts the YouTube video ID from a URL
 const extractVideoId = (url: string) => {
@@ -152,7 +151,6 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoPlayerProps>(
 
     // Monitor video time and advance to next subtitle if current time exceeds end time
     useEffect(() => {
-      YoutubeTranscript.fetchTranscript("https://www.youtube.com/watch?v=CaOy5agIvOA").then(console.log);
       if (!iframeRef.current || !selectedSubtitleId || !subtitles.length) return;
 
       const currentSubtitle = subtitles.find((sub) => sub.id === selectedSubtitleId);
@@ -268,7 +266,7 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoPlayerProps>(
           />
           <button
             onClick={() => handleLoadVideo(inputUrl)}
-            className="rounded bg-primary hover:bg-opacity-90 p-[13px] font-medium text-white ring-2 ring-primary/20 border-primary"
+            className="rounded bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-80 hover:bg-gradient-to-r hover:from-purple-600 hover:to-indigo-600 p-[13px] font-medium text-white ring-2 ring-primary/20 border-primary"
           >
             Load
           </button>

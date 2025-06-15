@@ -114,7 +114,7 @@ export function UserInfo() {
           {!userData.isPro && (
           <div
             onClick={() => handleSubmit()}
-            className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-[9px] hover:bg-gray-2 hover:text-dark dark:hover:bg-dark-3 dark:hover:text-white"
+            className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-[9px] hover:bg-gray-2 hover:text-dark dark:hover:bg-dark-3 dark:hover:text-white "
           >
             <StarIcon />
               <span className="mr-auto text-base font-medium">Active Pro</span>
