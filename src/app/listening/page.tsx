@@ -3,6 +3,7 @@
 import Listening from "@/components/listening-form/listening-form";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/app/UserContext";
+import ActiveProReminderPopup from "@/components/ActiveProCPN/ActiveProCPN"
 
 export default function SignUp() {
     const { userData, isLoadingAuth } = useUser();
@@ -14,7 +15,9 @@ export default function SignUp() {
     }
     return (
         <>
-
+        {!userData?.isPro && (
+          <ActiveProReminderPopup message="Listening"></ActiveProReminderPopup>
+        )}
         <Listening/>
 
         </>

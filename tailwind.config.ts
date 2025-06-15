@@ -1,8 +1,9 @@
 import type { Config } from "tailwindcss";
 import defaultTheme from "tailwindcss/defaultTheme";
+const {heroui} = require("@heroui/react");
 
 const config: Config = {
-  content: ["./src/**/*.{js,jsx,tsx}"],
+  content: ["./src/**/*.{js,jsx,tsx}","./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",],
   darkMode: ["class"],
   theme: {
     extend: {
@@ -377,6 +378,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [heroui()],
 };
 export default config;

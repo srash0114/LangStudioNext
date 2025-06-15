@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
+import { YoutubeTranscript } from 'youtube-transcript';
 
 // Extracts the YouTube video ID from a URL
 const extractVideoId = (url: string) => {
@@ -116,7 +117,7 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoPlayerProps>(
           withCredentials: true,
           data: { linkVideo: url },
         };
-
+        
         const { data } = await axios.request(options);
         console.log('API Response:', data);
         const parsedSubtitles = parseSrtSubtitles(data.srtSubtitles || data);
@@ -151,6 +152,7 @@ const VideoPlayer = forwardRef<VideoPlayerRef, VideoPlayerProps>(
 
     // Monitor video time and advance to next subtitle if current time exceeds end time
     useEffect(() => {
+      YoutubeTranscript.fetchTranscript("https://www.youtube.com/watch?v=CaOy5agIvOA").then(console.log);
       if (!iframeRef.current || !selectedSubtitleId || !subtitles.length) return;
 
       const currentSubtitle = subtitles.find((sub) => sub.id === selectedSubtitleId);

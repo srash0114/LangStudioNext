@@ -1,5 +1,6 @@
 import axios from "axios";
 import parkShinHye from '@/assets/user/park_shin_hye.jpg';
+import { promises } from "dns";
 
 export interface User {
   fullName: string;
@@ -10,6 +11,34 @@ export interface User {
 }
 
 const DEFAULT_AVATAR_URL = parkShinHye.src; // Thay bằng URL mặc định bạn muốn
+  
+  const options = {
+    method: 'POST',
+    url: 'https://api.scanvirus.me/Payment/create-payment',
+    withCredentials: true,
+    data: {
+      OrderDescription: 'Pro Subscription for LangStudio',
+      Amount: 55000,
+      OrderType: 'pro_subscription'
+    }
+  };
+
+export async function handleSubmit() {
+
+
+      try {
+        const response  = await axios.request(options);
+        const { paymentUrl } = response.data;
+        if (paymentUrl) {
+          window.location.href = paymentUrl; // Chuyển hướng trực tiếp
+          // Lưu ý: Nếu dùng React Router, có thể thay bằng navigate(paymentUrl)
+        } else {
+          throw new Error('No payment URL returned');
+        }
+      } catch (error) {
+        console.error(error);
+      }
+  };
 
 // Hàm lấy thông tin người dùng
 export async function getUserInfo(): Promise<User | null> {

@@ -16,12 +16,12 @@ import { logout } from "@/fetch-data";
 import { GuestDropdown } from "./no-user";
 import { useUser } from "@/app/UserContext";
 import axios from 'axios';
+import {handleSubmit} from "@/fetch-data";
 
 export function UserInfo() {
   const { userData, isLoadingAuth } = useUser();
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -41,32 +41,7 @@ export function UserInfo() {
       return <GuestDropdown />;
     }
   }
- const handleSubmit = async () => {
-      const options = {
-        method: 'POST',
-        url: 'https://api.scanvirus.me/Payment/create-payment',
-        withCredentials: true,
-        data: {
-          OrderDescription: 'Pro Subscription for LangStudio',
-          Amount: 55000,
-          OrderType: 'pro_subscription'
-        }
-      };
 
-      try {
-        const response  = await axios.request(options);
-        console.log(response);
-        const { paymentUrl } = response.data;
-        if (paymentUrl) {
-          window.location.href = paymentUrl; // Chuyển hướng trực tiếp
-          // Lưu ý: Nếu dùng React Router, có thể thay bằng navigate(paymentUrl)
-        } else {
-          throw new Error('No payment URL returned');
-        }
-      } catch (error) {
-        console.error(error);
-      }
-  };
   return (
     <Dropdown isOpen={isOpen} setIsOpen={setIsOpen}>
       <DropdownTrigger className="rounded align-middle outline-none ring-primary ring-offset-2 focus-visible:ring-1 dark:ring-offset-gray-dark">
