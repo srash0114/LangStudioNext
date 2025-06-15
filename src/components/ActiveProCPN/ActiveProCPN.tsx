@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@heroui/modal";
 import { Button } from "@heroui/button";
-import {handleSubmit} from "@/fetch-data";
+import { handleSubmit } from "@/fetch-data";
+
 interface ActiveProReminderPopupProps {
     message?: string;
 }
@@ -27,9 +28,11 @@ const ActiveProReminderPopup: React.FC<ActiveProReminderPopupProps> = ({
               To use the <strong>{message}</strong> feature, you need to subscribe to <strong>ActivePro</strong>!
             </p>
             <p>
-              The ActivePro plan allows you to unlock advanced features, including the ability to customize the interface with your brand's colors.
+              The ActivePro plan allows you to unlock advanced features, including the ability to customize the interface with your brand&apos;s colors.
             </p>
-            <p>Use This link for demo pay: <strong className="hover:text-primary text-blue-700"><a color="primary" href="https://sandbox.vnpayment.vn/apis/vnpay-demo/">https://sandbox.vnpayment.vn/apis/vnpay-demo/</a></strong></p>
+            <p>
+              Use this link for demo pay: <strong className="hover:text-primary text-blue-700"><a color="primary" href="https://sandbox.vnpayment.vn/apis/vnpay-demo/">https://sandbox.vnpayment.vn/apis/vnpay-demo/</a></strong>
+            </p>
           </ModalBody>
           <ModalFooter>
             <Button className="absolute left-6" color="danger" variant="light" onClick={closeModal}>
@@ -37,7 +40,7 @@ const ActiveProReminderPopup: React.FC<ActiveProReminderPopupProps> = ({
             </Button>
             <Button
               color="primary"
-              onClick={() => {handleSubmit()}}
+              onClick={() => { handleSubmit(); }}
             >
               Subscribe to ActivePro
             </Button>
