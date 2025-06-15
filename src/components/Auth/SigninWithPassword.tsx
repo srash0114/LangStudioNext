@@ -46,7 +46,7 @@ export default function SigninWithPassword() {
     } catch (error: any) {
       if(error.response && error.response.data === "Invalid credentials"){
         setErrorMessage("Incorrect username or password.")
-        
+        setPopup(false)
       }
       else{
         // setErrorMessage("An error occurred. Please try again later.")
@@ -112,7 +112,7 @@ export default function SigninWithPassword() {
         
       </div>
       {popup && (
-        <ErrorMs color='warning' message='Something went wrong. Please try again later' timeout={6000}></ErrorMs>
+        <ErrorMs color='warning' message='Something went wrong. Please check your internet connection or try accessing the site using Google Chrome.' timeout={6000}></ErrorMs>
       )}
       
     </form>
