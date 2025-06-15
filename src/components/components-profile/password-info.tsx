@@ -112,9 +112,9 @@ export function UpdatePassword() {
               showPasswordToggle={true}
             />
             <div className="flex justify-between">
-              <button type="submit" className="rounded-lg bg-primary px-6 py-[7px] font-medium text-gray-2 hover:bg-opacity-90">Submit</button>
+              <button type="submit" className="rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-[7px] font-medium text-gray-2 hover:opacity-80 transition-opacity">Submit</button>
               <button type="button" onClick={() => setShowPopup(false)}
-                className="rounded-lg border border-stroke px-6 py-[7px] font-medium text-dark hover:shadow-1 dark:border-dark-3 dark:text-white">
+                className="rounded-lg border border-stroke px-6 py-[7px] font-medium text-dark hover:shadow-1 dark:border-dark-3 dark:text-white hover:opacity-80">
                 Cancel
               </button>
             </div>

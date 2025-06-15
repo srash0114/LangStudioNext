@@ -96,7 +96,8 @@ export default function EssayChecker() {
       <div className="flip-container">
         <div className={`flip-card ${isFlipped ? 'flipped' : ''}`}>
           <div className="flip-front">
-            <EssayForm
+            {!isFlipped && (
+              <EssayForm
               formData={formData}
               setFormData={setFormData}
               setResult={setResult}
@@ -111,6 +112,7 @@ export default function EssayChecker() {
               setHistoryLoading={setHistoryLoading}
               setHistoryError={setHistoryError}
             />
+            )}
           </div>
           <div className="flip-back">
             <EssayResult

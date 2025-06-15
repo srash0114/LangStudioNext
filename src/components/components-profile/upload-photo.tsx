@@ -122,7 +122,7 @@ export const UploadPhotoForm: React.FC<PersonalInfoFormProps> = ({ userData }) =
 
         <div className="flex justify-end gap-3">
           <button
-            className="flex justify-center rounded-lg border border-stroke px-6 py-[7px] font-medium text-dark hover:shadow-1 dark:border-dark-3 dark:text-white"
+            className="flex justify-center rounded-lg border border-stroke px-6 py-[7px] font-medium text-dark hover:shadow-1 hover:opacity-80 dark:border-dark-3 dark:text-white"
             type="button"
             onClick={() => {
               setSelectedFile(null);
@@ -133,7 +133,7 @@ export const UploadPhotoForm: React.FC<PersonalInfoFormProps> = ({ userData }) =
             Cancel
           </button>
           <button
-            className="flex items-center justify-center rounded-lg bg-primary px-6 py-[7px] font-medium text-gray-2 hover:bg-opacity-90"
+            className="flex items-center justify-center rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-[7px] font-medium text-gray-2 hover:opacity-80"
             type="submit"
             disabled={isLoading}
           >

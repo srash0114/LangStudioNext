@@ -12,7 +12,7 @@ interface EssaySidebarProps {
   setResult: React.Dispatch<React.SetStateAction<EssayResult | null>>;
   setIsFlipped: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  fetchEssayHistory: (page: number, append?: boolean) => void; // Add fetchEssayHistory prop
+  fetchEssayHistory: (page: number, append?: boolean) => void;
 }
 
 export default function EssaySidebar({
@@ -29,8 +29,8 @@ export default function EssaySidebar({
 }: EssaySidebarProps) {
   const handleEssayClick = (essay: EssayResult) => {
     setResult(essay);
-    setIsFlipped(true);
-    setIsSidebarOpen(false);
+    setIsFlipped(true); // Flip to the result side
+    setIsSidebarOpen(false); // Close the sidebar
   };
 
   const handleLoadMore = () => {
@@ -40,83 +40,136 @@ export default function EssaySidebar({
 
   const formatDate = (isoString: string) => {
     const date = new Date(isoString);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
-    return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'short', // e.g., Jan, Feb
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true, // AM/PM
+    };
+    return date.toLocaleString('en-US', options);
   };
 
   return (
-    <div
-      ref={sidebarRef}
-      className={`fixed top-0 left-0 h-full w-72 bg-white dark:bg-gray-dark dark:shadow-card text-dark dark:text-gray-300 transform ${
-        isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-      } transition-transform duration-300 ease-in-out z-40 overflow-y-auto`}
-    >
-      <div className="p-4">
-        <h2 className="text-xl font-bold mb-4">Essay History</h2>
-        <button
+    <>
+      {/* Overlay */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-40 z-30 lg:hidden" // Only show overlay on smaller screens
           onClick={toggleSidebar}
-          className="absolute top-4 right-4 focus:outline-none text-dark dark:text-white"
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        ></div>
+      )}
+
+      {/* Sidebar */}
+      <div
+        ref={sidebarRef}
+        className={`fixed top-0 right-0 h-full w-80 bg-white dark:bg-gray-dark dark:shadow-card text-dark dark:text-gray-300 transform ${
+          isSidebarOpen ? 'translate-x-0' : 'translate-x-full' // Slide in from right
+        } transition-transform duration-300 ease-in-out z-40 overflow-y-auto shadow-xl border-l border-stroke dark:border-dark-3`}
+      >
+        <div className="sticky top-0 bg-white dark:bg-gray-dark px-6 py-5 flex items-center justify-between border-b border-stroke dark:border-dark-3">
+          <h2 className="text-xl font-bold text-dark dark:text-white">Essay History</h2>
+          <button
+            onClick={toggleSidebar}
+            className="rounded-full p-2 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors focus:outline-none"
+            aria-label="Close sidebar"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-        {historyLoading && essayHistory.essays.length === 0 ? (
-          <p>Loading history...</p>
-        ) : historyError ? (
-          <p className="text-red-500">{historyError}</p>
-        ) : essayHistory.essays.length > 0 ? (
-          <>
-            <ul className="space-y-4">
-              {essayHistory.essays.map((essay) => (
-                <li
-                  key={essay.id}
-                  className="border-b border-gray-700 pb-2 cursor-pointer dark:hover:bg-gray-800 hover:bg-gray-300 p-2 rounded"
-                  onClick={() => handleEssayClick(essay)}
-                  aria-hidden="true"
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div className="p-6">
+          {historyLoading && essayHistory.essays.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-10">
+              <svg className="animate-spin h-8 w-8 text-indigo-500 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <p className="text-gray-600 dark:text-gray-400">Loading history...</p>
+            </div>
+          ) : historyError ? (
+            <div className="p-4 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 rounded-md">
+              <p>{historyError}</p>
+            </div>
+          ) : essayHistory.essays.length > 0 ? (
+            <>
+              <ul className="space-y-4">
+                {essayHistory.essays.map((essay) => (
+                  <li
+                    key={essay.id}
+                    className="group bg-white dark:bg-gray-dark border border-stroke dark:border-dark-3 rounded-lg p-4 cursor-pointer shadow-sm hover:shadow-md transition-all duration-200 transform hover:-translate-y-0.5"
+                    onClick={() => handleEssayClick(essay)}
+                  >
+                    <h3 className="text-lg font-semibold text-dark dark:text-white truncate mb-1">
+                      {essay.title}
+                    </h3>
+                    <div className="flex justify-between items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                      <p>
+                        <strong className="font-medium">Score:</strong>{' '}
+                        <span className="font-bold text-indigo-600 dark:text-purple-400">
+                          {essay.bandScore}
+                        </span>{' '}
+                        (Target: {essay.targetBandScore})
+                      </p>
+                      
+                    </div>
+                    
+                    <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-2">
+                      {essay.feedback || 'No specific feedback available.'}
+                    </p>
+                    <div className='relative left-28 mt-2 text-gray-400' style={{ textDecoration: 'underline' }}>
+                    <p className="text-xs">{formatDate(essay.createdAt)}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              {essayHistory.essays.length >= essayHistory.page * essayHistory.pageSize && (
+                <button
+                  onClick={handleLoadMore}
+                  disabled={historyLoading}
+                  className={`mt-6 w-full py-3 px-4 rounded-lg font-medium text-white transition-all duration-300 flex items-center justify-center ${
+                    historyLoading
+                      ? 'bg-gray-400 cursor-not-allowed'
+                      : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90'
+                  }`}
                 >
-                  <h3 className="text-lg font-semibold truncate">{essay.title}</h3>
-                  <p className="text-sm"><strong>Band Score:</strong> {essay.bandScore}</p>
-                  <p className="text-sm"><strong>Target:</strong> {essay.targetBandScore}</p>
-                  <p className="text-sm"><strong>Feedback:</strong> {essay.feedback.slice(0, 100)}...</p>
-                  <p className="text-xs text-gray-400"><strong>Created:</strong> {formatDate(essay.createdAt)}</p>
-                </li>
-              ))}
-            </ul>
-            {essayHistory.essays.length >= essayHistory.page * essayHistory.pageSize && (
-              <button
-                onClick={handleLoadMore}
-                disabled={historyLoading}
-                className={`mt-4 w-full py-2 px-4 rounded text-white ${
-                  historyLoading
-                    ? 'bg-gray-500 cursor-not-allowed'
-                    : 'bg-blue-500 hover:bg-blue-600'
-                }`}
-              >
-                {historyLoading ? 'Loading...' : 'Load More'}
-              </button>
-            )}
-          </>
-        ) : (
-          <p>No essay history available.</p>
-        )}
+                  {historyLoading ? (
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  ) : (
+                    'Load More Essays'
+                  )}
+                </button>
+              )}
+            </>
+          ) : (
+            <div className="flex flex-col items-center justify-center py-10 text-center text-gray-600 dark:text-gray-400">
+              <svg className="h-16 w-16 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+              </svg>
+              <p className="text-lg font-medium mb-2">No History Found</p>
+              <p className="text-sm">Submit your first essay to see your history here.</p>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

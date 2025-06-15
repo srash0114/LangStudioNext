@@ -1,9 +1,9 @@
 "use client";
 
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import { PersonalInfoForm } from "./components-profile/personal-info";
-import { UploadPhotoForm } from "./components-profile/upload-photo";
-import { UpdatePassword } from "./components-profile/password-info";
+import { PersonalInfoForm } from "@/components/components-profile/personal-info";
+import { UploadPhotoForm } from "@/components/components-profile/upload-photo";
+import { UpdatePassword } from "@/components/components-profile/password-info";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/app/UserContext";
 

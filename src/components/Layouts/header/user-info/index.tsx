@@ -57,7 +57,7 @@ export function UserInfo() {
               height={200}
             />
             {userData.isPro && (
-              <span className="absolute bottom-0 right-0 inline-flex items-center rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-semibold text-white border-2 border-gray-2 dark:border-dark-3">
+              <span className="absolute bottom-0 right-0 inline-flex items-center rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 px-1.5 py-0.5 text-[10px] font-semibold text-white border-2 border-gray-2 dark:border-dark-3">
                 Pro
               </span>
             )}
@@ -89,7 +89,7 @@ export function UserInfo() {
               height={200}
             />
             {userData.isPro && (
-              <span className="absolute bottom-0 right-0 inline-flex items-center rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-semibold text-white border-2 border-gray-2 dark:border-dark-3">
+              <span className="absolute bottom-0 right-0 inline-flex items-center rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 px-1.5 py-0.5 text-[10px] font-semibold text-white border-2 border-gray-2 dark:border-dark-3">
                 Pro
               </span>
             )}
