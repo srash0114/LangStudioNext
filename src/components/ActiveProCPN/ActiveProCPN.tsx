@@ -25,13 +25,24 @@ const ActiveProReminderPopup: React.FC<ActiveProReminderPopupProps> = ({
           </ModalHeader>
           <ModalBody>
             <p>
-              To use the <strong>{message}</strong> feature, you need to subscribe to <strong>ActivePro</strong>!
+              To use the <strong>{message}</strong> feature, you need to upgrade to the <strong>ActivePro</strong> plan!
             </p>
             <p>
-              The ActivePro plan allows you to unlock advanced features, including the ability to customize the interface with your brand&apos;s colors.
+              The <strong>ActivePro</strong> plan unlocks powerful learning tools that help you improve your English faster:
             </p>
-            <p>
-              Use this link for demo pay: <strong className="hover:text-primary text-blue-700"><a color="primary" href="https://sandbox.vnpayment.vn/apis/vnpay-demo/">https://sandbox.vnpayment.vn/apis/vnpay-demo/</a></strong>
+            <ul className="list-disc pl-5 mt-2 space-y-1">
+              <li>Detailed feedback and suggestions for your writing</li>
+              <li>Unlimited access to exercises and learning resources</li>
+              <li>Track your learning progress over time</li>
+              <li>Customize your learning experience to match your level and goals</li>
+            </ul>
+            <p className="mt-4">
+              You can try a demo payment at:{" "}
+              <strong className="hover:text-primary text-blue-700">
+                <a href="https://sandbox.vnpayment.vn/apis/vnpay-demo/" target="_blank" rel="noopener noreferrer">
+                  https://sandbox.vnpayment.vn/apis/vnpay-demo/
+                </a>
+              </strong>
             </p>
           </ModalBody>
           <ModalFooter>

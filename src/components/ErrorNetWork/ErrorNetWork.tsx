@@ -26,7 +26,7 @@
         return null;
     }
     return (
-        <div className="absolute bottom-2 left-4">
+        <div className="absolute bottom-2 left-4 mr-4">
         <div className="flex flex-col w-full">
             <div key={color} className="w-full flex items-center my-3">
                 <Alert color={color} title={message} />
